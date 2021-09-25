@@ -35,6 +35,12 @@ saveImageProcessingStep(input_path,'_edges',edges)
 #get all lines
 lines = cv.HoughLinesP(edges,1,np.pi/180,30,minLineLength=40,maxLineGap=5)
 
+fld = cv.ximgproc.createFastLineDetector()
+fld_lines = fld.detect(edges)
+
+fld_img = fld.drawSegments(img,fld_lines)
+saveImageProcessingStep(input_path,'_fld_lines',fld_img)
+
 #superimpose lines on original image
 for line in lines:
     x1,y1,x2,y2 = line[0]
